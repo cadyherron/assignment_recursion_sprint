@@ -1,78 +1,66 @@
-# FACTORIAL
-
 def factorial_r(n)
-  if n == 0
-    1
-  else
-    n * factorial_r(n-1)
-  end
+    return 1 if n == 0
+    n * factorial_r( n-1 )
 end
 
+puts factorial_r(0)
+puts factorial_r(5)
 
 def factorial_i(n)
-  if n == 0
-    result = 1
-  else
-    result = n
-    until n == 2
-      result *= (n-1)
-      n -= 1
+    return 1 if n == 0
+    product = 1
+    (1..n).each do |  number |
+        product *= number
     end
-  end
-  result
+    product
 end
 
+puts factorial_i(0)
+puts factorial_i(5)
 
+def digit_sum_r( n )
+    return n if n >= 0 && n <= 9
+    
+    mod = n % 10
+    quot = n /10
 
-
-# DIGIT SUM
-
-def sumdig_r(n)
-  sum = 0
-  if n == 0
-    sum
-  else
-   sum += n % 10 + sumdig_r(n/10)
- end
+    mod + digit_sum_r( quot )
 end
 
+puts digit_sum_r(3)
+puts digit_sum_r(4422118)
 
-def sumdig_i(n)
-  sum = 0
-  if n == 0
-    sum
-  else
-    split = n.to_s.split(//).each{|item| sum += item.to_i}
-  end
-  sum
+def digit_sum_i( n )
+    n_str_arr = n.to_s.split("")
+    n_str_arr.reduce( 0 ) { | sum, elt| sum += elt.to_i  }
 end
 
+puts digit_sum_i(3)
+puts digit_sum_i(4422118)
 
+def palindrome_r( str )
+    return true if str.length == 1 || str.length == 0
 
-# PALINDROME
-
-
-def palindrome_r(string)
-  if string.length == 1 || string.length == 0
-    true
-  else
-    if string[0] == string[-1]
-      palindrome(string[1..-2])
+    if str[0]  == str[-1]
+        palindrome_r( str[1..-2] )
     else
-      false
+        false
     end
-  end
 end
 
+puts palindrome_r("racecar")
+puts palindrome_r("notapalindrome")
+puts palindrome_r("y")
 
-def palindrome_i(string)
-  # even number of letters
-  if string.length % 2 == 0
-    middle = string.length / 2  # right-side of middle
-    string[0..middle-1] == string[-middle..-1].reverse
-  # odd number of letters
-  else
-    middle = string.length / 2
-    string[0..middle-1] == string[-middle..-1].reverse
-  end
+def palindrome_i( str )
+    ret_bool = true
+    (0..str.length / 2).each do | index |
+        ret_bool = ret_bool && str[index] == str[str.length - index - 1 ]
+    end
+    ret_bool
 end
+
+puts palindrome_i("racecar")
+puts palindrome_i("notapalindrome")
+puts palindrome_i("y")
+
